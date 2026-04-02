@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply to date me 🌸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #f7f3ee;
+    --card: #ffffffcc;
+    --text: #2f2f2f;
+    --text-light: #7a7a7a;
+    --accent: #e8aeb7;
+    --accent-soft: #f3d6db;
+    --border: #ece7e2;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 90%;
+    max-width: 460px;
+    padding: 44px;
+    border-radius: 20px;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 28px;
+    font-style: italic;
+}
+
+.question {
+    margin: 26px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+button {
+    width: 100%;
+    margin: 8px 0;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+}
+
+.start-btn {
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    background: white;
+    font-size: 14px;
+    resize: none;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.music {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.petal {
+    position: absolute;
+    opacity: 0.5;
+    animation: fall linear infinite;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+.result {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.spotify-gift {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.spotify-gift a {
+    color: var(--accent);
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="music" onclick="toggleMusic()">🎵</div>
+
+<audio id="bgm" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c0a13cfae.mp3">
+</audio>
+
+<div class="card">
+    <div id="app"></div>
+</div>
+
+<script>
+// Music toggle
+let playing = false;
+function toggleMusic() {
+    let audio = document.getElementById("bgm");
+    playing ? audio.pause() : audio.play();
+    playing = !playing;
+}
+
+// Falling petals
+for (let i = 0; i < 15; i++) {
+    let petal = document.createElement("div");
+    petal.className = "petal";
+    petal.innerText = Math.random() > 0.5 ? "🌸" : "🌼";
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (8 + Math.random() * 12) + "s";
+    petal.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(petal);
+}
+
+// QUIZ DATA (unchanged)
+const q = [
+    ["If you had to choose a flower for me:", ["Tulip", "Peony", "Any flower because all of them are beautiful"], "C"],
+    ["We walk into a slightly confusing contemporary art exhibition together. You:", ["Try to understand what the artist meant", "Focus on how it makes you feel", "Make one slightly inappropriate but very funny observation"], "C"],
+    ["I start talking about something random i learned. You:", ["Listen politely", "Ask questions and engage", "Add your own perspective and challenge me a little"], "C"],
+    ["If I were art I would be:", ["Minimal but intentional", "Emotional and layered", "Slightly strange but memorable"], "B"],
+    ["We pass by a quiet place that feels almost spiritual. You:", ["Keep walking", "Pause and take it in", "Subtly match the mood without making it a big deal"], "B"],
+    ["I make a terrible dad joke. Your reaction:", ["Polite smile", "Genuine laugh (even if it hurts a little)", "You immediately try to outdo me with a worse one"], "C"],
+    ["I suddenly shift from being playful to talking about something deeper or a bit dark. You:", ["Get slightly uncomfortable", "Listen and stay present", "Meet me there and add your own layer"], "C"],
+    ["What role does music play in your life", ["Enjoy", "Cannot live without", "Searching for the deeper meaning"], "B"],
+    ["In a new city, you need to:", ["Plan", "Go with the flow", "Get totally lost"], "C"],
+    ["I tell you that i love stories that feel a bit unreal, like The Master and Margarita. You:", ["Admit you have not read it, and that it is not for you", "Ask what I liked about it", "Change topic and talk about what it is that you like"], "B"]
+];
+
+let i = 0;
+let correctAnswers = 0;
+
+// INTRO SCREEN
+function startScreen() {
+    const app = document.getElementById("app");
+    app.innerHTML = `
+        <h1>🌸 Apply to date me 🌸</h1>
+        <div class="subtitle">this is not a test. (it is a test.)</div>
+        <button class="start-btn" onclick="startQuiz()">start now</button>
+    `;
+}
+
+// START QUIZ
+function startQuiz() {
+    render();
+}
+
+// RENDER QUESTIONS
+function render() {
+    const app = document.getElementById("app");
+    app.innerHTML = "";
+
+    if (i < q.length) {
+        let div = document.createElement("div");
+        div.className = "question";
+        div.innerText = q[i][0];
+        app.appendChild(div);
+
+        q[i][1].forEach((t, idx) => {
+            let b = document.createElement("button");
+            b.innerText = t;
+            b.onclick = () => choose(["A", "B", "C"][idx]);
+            app.appendChild(b);
+        });
+    } else {
+        app.innerHTML = `
+        <h1>🌸 Apply to date me 🌸</h1>
+        <div class="subtitle">this is not a test. (it is a test.)</div>
+        <div class="question">Describe your ideal first date with me:</div>
+        <textarea id="txt" placeholder="type here..."></textarea><br><br>
+        <button onclick="finish()">submit</button>
+        `;
+        let textarea = document.getElementById("txt");
+        let timeout;
+        textarea.addEventListener("input", function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                this.value = "I will take you to the bookshop and buy you whatever book you want.";
+            }, 1000);
+        });
+    }
+}
+
+function choose(l) {
+    if (l === q[i][2]) correctAnswers++;
+    i++;
+    render();
+}
+
+// FINISH FUNCTION (unchanged sassy)
+function finish() {
+    const app = document.getElementById("app");
+    let result = "";
+
+    if (correctAnswers === q.length) {
+        result = "🌸 *EXCUSE ME???* this is actually terrifying. how do you know me like this. be honest—are you in my walls or just in love with me already?? i need answers immediately.";
+    } else if (correctAnswers >= 7) {
+        result = "✨ *okay wait a minute.* why are you kinda eating this up… i don’t like how good you’re getting at this. it’s giving dangerous. it’s giving i might text you back.";
+    } else if (correctAnswers >= 4) {
+        result = "🌼 *what is going ON here.* this is chaos. some answers were cute, some were… concerning. i’m confused, intrigued, and slightly emotionally unstable now.";
+    } else {
+        result = "💭 *i’m gonna hold your hand when i say this…* are you even trying or just freestyle clicking like it’s a game. because this performance?? bold. confusing. unforgettable (for the wrong reasons).";
+    }
+
+    app.innerHTML = `
+    <h1>🌸 Apply to date me 🌸</h1>
+    <div class="subtitle">this is not a test. (it is a test.)</div>
+    <div class="result">
+    Thank you for your answers.<br><br>
+    ${result}<br><br>
+    I’ll be thinking about this.
+    </div>
+    <div class="spotify-gift">
+        While you wait, here’s a little gift:<br><br>
+        <a href="https://open.spotify.com/track/7c223RltkvhN8wrxIqspM5?si=61bf33d21ffa4e80" target="_blank">
+            🎧 A song for you
+        </a>
+    </div>
+    `;
+}
+
+// INIT
+startScreen();
+</script>
+
+</body>
+</html>
