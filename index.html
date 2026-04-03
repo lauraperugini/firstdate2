@@ -210,6 +210,7 @@ textarea:focus, input:focus {
     let correctAnswers = 0;
     let userAnswers = [];
     let userName = "";
+    let userIntentions = "";
 
     // INTRO SCREEN
     function startScreen() {
@@ -217,15 +218,29 @@ textarea:focus, input:focus {
         app.innerHTML = `
             <h1>🌸 Apply to date me 🌸</h1>
             <div class="subtitle">this is not a test. (it is a test.)</div>
-            <div class="question">What's your name?</div>
-            <input id="name" type="text" placeholder="Your name...">
-            <button class="start-btn" onclick="collectName()">start quiz</button>
+            <button class="start-btn" onclick="showNameIntentionsScreen()">start</button>
         `;
     }
 
-    // COLLECT NAME
-    function collectName() {
+    // SHOW NAME AND INTENTIONS SCREEN
+    function showNameIntentionsScreen() {
+        const app = document.getElementById("app");
+        app.innerHTML = `
+            <h1>🌸 Apply to date me 🌸</h1>
+            <div class="subtitle">this is not a test. (it is a test.)</div>
+            <div class="question">What's your name?</div>
+            <input id="name" type="text" placeholder="Your name...">
+            <div class="question">What are your intentions with me?</div>
+            <textarea id="intentions" placeholder="Tell me your intentions..."></textarea>
+            <button class="start-btn" onclick="collectNameIntentions()">start quiz</button>
+        `;
+    }
+
+    // COLLECT NAME AND INTENTIONS
+    function collectNameIntentions() {
         userName = document.getElementById("name").value || "Mystery Admirer";
+        userIntentions = document.getElementById("intentions").value || "Mysterious intentions";
+        userAnswers.push(`Intentions: ${userIntentions}`);
         startQuiz();
     }
 
